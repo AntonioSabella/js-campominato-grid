@@ -4,9 +4,9 @@ con difficoltà 2 => tra 1 e 81
 con difficoltà 3 => tra 1 e 49
 Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro. */
 
-// intercetta l'invio del form 
+// Intercettiamo l'invio del form 
 document.querySelector('form').addEventListener('submit', function (event) {
-  // previene il refresh della pagina
+  // preveniamo il refresh della pagina
   event.preventDefault();
 
   startGame(event);
@@ -20,12 +20,12 @@ document.querySelector('form').addEventListener('submit', function (event) {
 function startGame(event) {
   // seleziona il livello 
   const level = event.target[0].value;
-
-  //console.log(level);
-  // decidere come strutturare la griglia in base al livello scelto
+  console.log(level);
+  
+  // Costruire la griglia in base al livello di difficoltà prescelto
   //level === 'easy'
   let cells_number, cols_number;
-
+  //Sfruttiamo lo switch case per mostrare il formato di griglia adatto
   switch (level) {
     case 'easy':
       cells_number = 100;
@@ -55,16 +55,16 @@ function startGame(event) {
  */
 function generate_grid(cells_number, cols_number) {
 
-  /* TODO: Estrai il selettore e trasformalo in un parametro */
+  /* Da fare in fase di refactoring: Estrarre il selettore e trasformarlo in un parametro della funzione */
   const gameAreaElement = document.querySelector('main .cells')
 
-  // pulire area di gioco
+  // pulire area di gioco all'introduzione di una nuova griglia
   gameAreaElement.innerHTML = ''
 
 
   for (let i = 1; i <= cells_number; i++) {
     // creare l'elemento della dom (cella) da inserire nell'area di gioco
-    /* TODO: Estrai il tag name e trasformalo in un parametro */
+    /* Da fare in fase di refactoring: Estrarre il tag name e trasformarlo in un parametro */
     const cell = document.createElement('div')
     // appendere alla cella il numero progressivo generato nel ciclo
     cell.append(i)
@@ -73,7 +73,7 @@ function generate_grid(cells_number, cols_number) {
     cell.style.width = `calc(100% / ${cols_number})`
 
 
-    // appendere la calla all'area di gioco
+    // appendere la cella all'area di gioco
     gameAreaElement.append(cell)
 
   }
@@ -81,9 +81,7 @@ function generate_grid(cells_number, cols_number) {
 }
 
 
-
-/* Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro. */
-
+/* Quando l'utente clicca sulle celle, queste si colorano di azzurro. */
 
 /**
  * Handle cell click event
@@ -92,7 +90,7 @@ function generate_grid(cells_number, cols_number) {
  */
 function handleClick(css_selector, css_class) {
 
-  // 1. selezionare tutte le celle querySelectorAll
+  // 1. selezionare tutte le celle mediante querySelectorAll
   const cells = document.querySelectorAll(css_selector)
   //console.log(cells);
   // 2. ciclare tra gli elementi della dom
@@ -110,87 +108,3 @@ function handleClick(css_selector, css_class) {
   }
 
 }
-
-
-/* (Soluzione da rivedere e implementare correttamente)
- let difficult_easy = document.getElementById('easy').value;
-console.log(difficult_easy);
-let difficult_medium = document.getElementById('medium').value;
-console.log(difficult_medium);
-let difficult_hard = document.getElementById('hard').value;
-console.log(difficult_hard);
-let play_button = document.getElementById('play')
-let difficulty_select = document.getElementById('difficoltà').value;
-console.log(difficulty_select);
-
-
-//Funzione per creare gli elementi Cell all'interno di Cells
-function generateGrid(number_of_cells, selector, element_name, class_name) {
-    const cellsElement = document.querySelector(selector)
-    for (let i = 1; i <= number_of_cells; i++) {
-      const cell = document.createElement(element_name)
-      cell.classList.add(class_name)
-      cellsElement.append(cell)
-    }
-  }
-
-  //generateGrid(100, '.cells', 'div', 'cell')
-
-  // Funzione per selezionare le celle
-  function selectCells(selector) {
-    const cells = document.querySelectorAll(selector)
-    return cells
-  }
-  
-  function activateCell(selector, active_class) {
-    const cells = selectCells(selector)
-    //console.log(cells);
-  
-    for (let index = 0; index < cells.length; index++) {
-      const cell = cells[index];
-      cell.addEventListener('click', function () {
-        console.log(this);
-        this.classList.toggle(active_class)
-        this.firstChild.style.color = 'white'
-        this.style.backgroundColor = 'cornflowerblue'
-      })
-    }
-  }
-
-
-  
-  function generateGridNumbers() {
-    const gridNumbers = []
-    
-    for(let i = 1; i <= 100 ; i++) {
-        gridNumbers.push([i]);
-    }
-    return gridNumbers
-  }
-  
-  
-  function fillCells(selector) {
-    const cells = selectCells(selector)
-    console.log(cells);
-    for (let index = 0; index < cells.length; index++) {
-      const cell = cells[index];
-      console.log(cell);
-      const gridNumbers = generateGridNumbers()
-      cell.innerHTML = `<span>${gridNumbers[index]}</span>`
-    }
-  }
-  
-
-
-   generateGrid(100, '.cells', 'div', 'cell')
-  //generateGridNumbers(100)
-  //generateGrid(81, '.cells', 'div', 'cell')
-  //generateGridNumbers(81)
-
-  //generateGrid(49, '.cells', 'div', 'cell')
-  //generateGridNumbers(49)
-
-
-  activateCell('.cell', 'selected')
-
-  fillCells('.cell') */
